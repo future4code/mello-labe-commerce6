@@ -7,7 +7,7 @@ export const Container = styled.div`
     grid-template-column: repeat(auto-fill, 200px);
 `;
 
-const Produtos = (props) => {
+const Produtos = (values) => {
     const [products, setProducts] = useState([
         {
             id: 1,
@@ -61,11 +61,7 @@ const Produtos = (props) => {
 
     const renderList = () => {
         return products.map((item) => {
-            if (
-                item.name.includes(search) &&
-                item.value < props.valMax &&
-                item.value > props.valMin
-            ) {
+            if (item.name.includes(search)) {
                 return (
                     <div key={item.id}>
                         id: {item.id} |{item.name} | preço {item.value} |
