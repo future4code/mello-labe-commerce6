@@ -68,16 +68,20 @@ function Produtos() {
     ]);
     const [search, setSearch] = useState('');
     const [sortSwitch, setSwitch] = useState(false);
+    const [HigherValue, setHigher] = useState({ max: 100000 });
+    const [LesserValue, setLesser] = useState({ min: 1 });
 
     const sort = () => {
         if (sortSwitch) {
             const sorted = [...products].sort((a, b) => a.value - b.value);
             setProducts(sorted);
             setSwitch(false);
+            console.log(LesserValue.min, setLesser.max);
         } else {
             const sorted = [...products].sort((a, b) => b.value - a.value);
             setProducts(sorted);
             setSwitch(true);
+            console.log(LesserValue.min, setLesser.max);
         }
     };
 
@@ -91,19 +95,12 @@ function Produtos() {
 
     const mySearch = new RegExp(search, 'gi');
 
-    const renderList = () => {
-        return products.map((item) => {
-            if (item.name.match(mySearch)) {
-                return (
-                    <ProductCard key={item.id}>
-                        <ProductName>{Capitalize(item.name)}</ProductName>
-                        <img src={item.imageUrl} alt="" />
-                        R${item.value}
-                        <button>Adicionar ao Carrinho</button>
-                    </ProductCard>
-                );
-            }
-        });
+    const minValue = (e) => {
+        setLesser({ min: Number(e.target.value) });
+    };
+
+    const maxValue = (e) => {
+        setHigher({ max: Number(e.target.value) });
     };
 
     return (
@@ -119,10 +116,29 @@ function Produtos() {
             </label>
             <label htmlFor="">Filtrar</label>
             <label htmlFor="">Valor Mínimo</label>
-            <input type="number" min={0} />
+            <input onChange={minValue} type="number" min={0} />
             <label htmlFor="">Valor Máximo</label>
-            <input type="number" />
-            <Container>{renderList()}</Container>
+            <input onChange={maxValue} type="number" />
+            <Container>
+                {products.map((item) => {
+                    if (
+                        item.name.match(mySearch) &&
+                        Number(item.value) > LesserValue.min &&
+                        Number(item.value) < HigherValue.max
+                    ) {
+                        return (
+                            <ProductCard key={item.id}>
+                                <ProductName>
+                                    {Capitalize(item.name)}
+                                </ProductName>
+                                <img src={item.imageUrl} alt="" />
+                                R${item.value}
+                                <button>Adicionar ao Carrinho</button>
+                            </ProductCard>
+                        );
+                    }
+                })}
+            </Container>
         </>
     );
 }
