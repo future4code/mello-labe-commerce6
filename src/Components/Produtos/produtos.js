@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 
-export const Container = styled.div`
-    display: grid;
-    grid-template-column: repeat(auto-fill, 200px);
-`;
+import { Container, ProductCard, ProductName } from './produtos_styles';
 
-const Produtos = (values) => {
+const Produtos = () => {
     const [products, setProducts] = useState([
         {
             id: 1,
@@ -62,9 +58,11 @@ const Produtos = (values) => {
         return products.map((item) => {
             if (item.name.includes(search)) {
                 return (
-                    <div key={item.id}>
-                        id: {item.id} |{item.name} | preço {item.value} |
-                    </div>
+                    <ProductCard key={item.id}>
+                        <ProductName>{item.name}</ProductName>
+                        <img src={item.imageUrl} alt="" />
+                        R${item.value}
+                    </ProductCard>
                 );
             }
         });
@@ -72,17 +70,15 @@ const Produtos = (values) => {
 
     return (
         <>
-            <Container>
-                <label htmlFor="">
-                    Ordenar por:
-                    <select onChange={sort}>
-                        <option> Preço crescente </option>
-                        <option> Preço decrescente </option>
-                    </select>
-                </label>
-                <input type="text" value={search} onChange={handleSearch} />
-                {renderList()}
-            </Container>
+            <label htmlFor="">
+                Ordenar por:
+                <select onChange={sort}>
+                    <option> Preço crescente </option>
+                    <option> Preço decrescente </option>
+                </select>
+            </label>
+            <input type="text" value={search} onChange={handleSearch} />
+            <Container>{renderList()}</Container>
         </>
     );
 };
