@@ -119,7 +119,7 @@ function Produtos() {
             </label>
             <label htmlFor="">Filtrar</label>
             <label htmlFor="">Valor Mínimo</label>
-            <input type="number" />
+            <input type="number" min={0} />
             <label htmlFor="">Valor Máximo</label>
             <input type="number" />
             <Container>{renderList()}</Container>
