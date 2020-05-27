@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { render } from '@testing-library/react';
 
 export const Container = styled.div`
     display: grid;
