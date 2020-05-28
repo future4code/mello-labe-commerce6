@@ -16,11 +16,11 @@ class Filter extends React.Component {
     };
 
     minValue = (e) => {
-        this.setState({ HigherValue: Number(e.target.value) });
+        this.setState({ LesserValue: Number(e.target.value) });
     };
 
     maxValue = (e) => {
-        this.setState({ LesserValue: Number(e.target.value) });
+        this.setState({ HigherValue: Number(e.target.value) });
     };
 
     render() {
