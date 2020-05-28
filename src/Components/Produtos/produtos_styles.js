@@ -35,3 +35,10 @@ export const ProductName = styled.p`
     border-radius: 15%;
     text-align: center;
 `;
+
+export const Inputs = styled.p`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+`;
