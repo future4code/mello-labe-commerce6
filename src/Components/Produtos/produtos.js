@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Container, ProductCard, ProductName } from './produtos_styles';
+import React, { useState, useEffect } from 'react';
+import { Container, ProductCard, ProductName, Inputs } from './produtos_styles';
+import Cart from '../Carrinho/carrinho';
 
-function Produtos() {
+function Produtos(props) {
     const [products, setProducts] = useState([
         {
             id: 1,
@@ -66,8 +67,11 @@ function Produtos() {
             imageUrl: 'https://picsum.photos/200/200',
         },
     ]);
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState(props.Parameters);
     const [sortSwitch, setSwitch] = useState(false);
+    const [HigherValue, setHigher] = useState(props.valMax);
+    const [LesserValue, setLesser] = useState(props.ValMin);
+    const [ids, setIds] = useState([]);
 
     const sort = () => {
         if (sortSwitch) {
@@ -81,48 +85,66 @@ function Produtos() {
         }
     };
 
+    useEffect(() => {
+        setSearch(props.Parameters);
+        setLesser(props.valMin);
+        setHigher(props.valMax);
+        console.log(props);
+    }, [props]);
+
+    const addToCart = (id) => {
+        products.map((item) => {
+            if (item.id === id) {
+                setIds([...ids, item]);
+            } else {
+                return;
+            }
+        });
+    };
+    // re-atualizar os produtos após inserts
+    // => montar o filtro - passar os parametros de filtragem pra cá por props <=
+    //Cart recebe os produtos por props por meio de uma função que filtra qual produto foi clicado e seta em novo estado que será passado para o Cart.
+    // O filtro pode receber tambem por props o products inteiro da mesma forma
+
     const Capitalize = (str) => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
 
-    const handleSearch = (e) => {
-        setSearch(e.target.value);
-    };
-
-    const mySearch = new RegExp(search, 'gi');
-
-    const renderList = () => {
-        return products.map((item) => {
-            if (item.name.match(mySearch)) {
-                return (
-                    <ProductCard key={item.id}>
-                        <ProductName>{Capitalize(item.name)}</ProductName>
-                        <img src={item.imageUrl} alt="" />
-                        R${item.value}
-                        <button>Adicionar ao Carrinho</button>
-                    </ProductCard>
-                );
-            }
-        });
-    };
+    const mySearchParameter = new RegExp(search, 'gi');
 
     return (
         <>
-            <label htmlFor="">Procurar por nome:</label>
-            <input onChange={handleSearch} type="text" />
-            <label htmlFor="">
+            <Inputs>
+                <label htmlFor=""></label>
                 Ordenar por:
                 <select onChange={sort}>
                     <option> Preço crescente </option>
                     <option> Preço decrescente </option>
                 </select>
-            </label>
-            <label htmlFor="">Filtrar</label>
-            <label htmlFor="">Valor Mínimo</label>
-            <input type="number" min={0} />
-            <label htmlFor="">Valor Máximo</label>
-            <input type="number" />
-            <Container>{renderList()}</Container>
+            </Inputs>
+            <Container>
+                {products.map((item) => {
+                    if (
+                        item.name.match(mySearchParameter) &&
+                        Number(item.value) > LesserValue &&
+                        Number(item.value) < HigherValue
+                    ) {
+                        return (
+                            <ProductCard key={item.id}>
+                                <ProductName>
+                                    {Capitalize(item.name)}
+                                </ProductName>
+                                <img src={item.imageUrl} alt="" />
+                                R${item.value}
+                                <button onClick={() => addToCart(item.id)}>
+                                    Adicionar ao Carrinho
+                                </button>
+                            </ProductCard>
+                        );
+                    }
+                })}
+                <Cart ids={ids} />
+            </Container>
         </>
     );
 }
