@@ -1,12 +1,14 @@
 import React from 'react';
-import Produtos from './Components/Produtos/produtos';
 import Filter from './Components/Filtro/filter';
+import { GlobalStyle } from './GlobalStyles/GlobalStyles_styles';
 
 function App() {
     return (
-        <div>
+        <>
+            <h1>Il negozio !</h1>
+            <GlobalStyle />
             <Filter />
-        </div>
+        </>
     );
 }
 
