@@ -101,7 +101,9 @@ function Produtos(props) {
     const [sortSwitch, setSwitch] = useState(false);
     const [HigherValue, setHigher] = useState(props.valMax);
     const [LesserValue, setLesser] = useState(props.ValMin);
-    const [cartItems, setCart] = useState([]);
+    const [cartItems, setCart] = useState(
+        JSON.parse(localStorage.getItem('cart')) || [],
+    );
     const [toggle, setToggle] = useState(false);
 
     //////////////////////////////// Ordenar por valor
