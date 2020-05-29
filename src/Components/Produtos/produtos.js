@@ -8,13 +8,13 @@ import {
     CartBtn,
     Cart,
     ProductCardinCart,
+    Red,
+    Green,
+    White,
 } from './produtos_styles';
 
 Array.prototype.remove = function (index) {
     this.splice(index, 1);
-};
-Array.prototype.removeAll = function (index) {
-    this.splice(index);
 };
 
 // Por algum motivo o splice diretamente não estava funcionando, então pesquisamos sobre o assunto
@@ -127,15 +127,12 @@ function Produtos(props) {
         setSearch(props.Parameters);
         setLesser(props.valMin);
         setHigher(props.valMax);
+        console.log(cartItems);
     }, [props]);
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
-
-    useEffect(() => {
-        localStorage.setItem('cartOpt', JSON.stringify(toggle));
-    }, [toggle]);
 
     //////////////////// Adiciona o produto no carrinho
 
@@ -200,6 +197,7 @@ function Produtos(props) {
     );
 
     const mySearchParameter = new RegExp(search, 'gi');
+    // Regular Expressions
 
     //// Renderização Condicional do Carrinho
 
