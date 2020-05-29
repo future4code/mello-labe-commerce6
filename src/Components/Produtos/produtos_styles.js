@@ -48,9 +48,10 @@ export const ProductCard = styled.div`
     }
     button {
         background: none;
-        border: none;
-        border-bottom: 1px solid green;
+        border: 1px solid green;
+        border-radius: 5%;
         font-weight: bold;
+        padding: 10px;
     }
 `;
 
