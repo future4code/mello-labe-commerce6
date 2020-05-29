@@ -99,6 +99,13 @@ export const Cart = styled.div`
     justify-content: space-evenly;
     overflow-y: scroll;
 
+    button {
+        background: none;
+        border: 1px solid green;
+        border-radius: 5%;
+        font-weight: bold;
+        padding: 10px;
+    }
     h3 {
         color: black;
     }
@@ -106,4 +113,19 @@ export const Cart = styled.div`
     ::-webkit-scrollbar {
         display: none;
     }
+`;
+
+export const Red = styled.p`
+    color: red;
+    display: inline;
+`;
+
+export const Green = styled.p`
+    color: green;
+    display: inline;
+`;
+
+export const White = styled.p`
+    color: white;
+    display: inline;
 `;

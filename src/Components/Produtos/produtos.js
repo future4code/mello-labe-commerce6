@@ -8,6 +8,9 @@ import {
     CartBtn,
     Cart,
     ProductCardinCart,
+    Red,
+    Green,
+    White,
 } from './produtos_styles';
 
 Array.prototype.remove = function (index) {
@@ -124,6 +127,7 @@ function Produtos(props) {
         setSearch(props.Parameters);
         setLesser(props.valMin);
         setHigher(props.valMax);
+        console.log(cartItems);
     }, [props]);
 
     useEffect(() => {
@@ -193,11 +197,13 @@ function Produtos(props) {
     );
 
     const mySearchParameter = new RegExp(search, 'gi');
+    // Regular Expressions
 
     //// Renderização Condicional do Carrinho
 
     const toggleCart = () => {
         setToggle(!toggle);
+        localStorage.setItem('cartOpt', JSON.stringify(toggle));
     };
 
     const cartShow = () => {
@@ -221,7 +227,14 @@ function Produtos(props) {
         }
     };
 
-    ///////////////////////////////////////////////////////////////
+    /// Limpando Carrinho
+
+    const clearCart = () => {
+        localStorage.clear('cart');
+        window.location.reload();
+    };
+
+    ////////////////////////////////////////////////////////////
 
     return (
         <>
@@ -238,6 +251,7 @@ function Produtos(props) {
                     <h1>Carrinho:</h1>
                     {cartShow()}
                     <h3>Valor da Compra: R${cartSum}</h3>
+                    <button onClick={clearCart}>Limpar Carrinho</button>
                 </Cart>
             ) : (
                 ''
