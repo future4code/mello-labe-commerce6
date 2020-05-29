@@ -10,6 +10,13 @@ import {
     ProductCardinCart,
 } from './produtos_styles';
 
+Array.prototype.remove = function (index) {
+    this.splice(index, 1);
+};
+
+// Por algum motivo o splice diretamente não estava funcionando, então pesquisamos sobre o assunto
+// e vimos que era possível criar um método para a classe de arrays que faz o mesmo que o splice
+
 function Produtos(props) {
     const [products, setProducts] = useState([
         {
@@ -94,9 +101,7 @@ function Produtos(props) {
     const [sortSwitch, setSwitch] = useState(false);
     const [HigherValue, setHigher] = useState(props.valMax);
     const [LesserValue, setLesser] = useState(props.ValMin);
-    const [cartItems, setCart] = useState(
-        JSON.parse(localStorage.getItem('cart')) || [],
-    );
+    const [cartItems, setCart] = useState([]);
     const [toggle, setToggle] = useState(false);
 
     //////////////////////////////// Ordenar por valor
@@ -130,13 +135,13 @@ function Produtos(props) {
         console.log(findProduct);
 
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
-
         if (findProductInCart !== -1) {
             cartItems[findProductInCart].qntd += 1;
             setCart([...cartItems]);
         } else {
             products[findProduct].qntd += 1;
             setCart([...cartItems, products[findProduct]]);
+            products[findProduct].qntd = 0;
         }
     };
 
@@ -144,9 +149,8 @@ function Produtos(props) {
 
     const deleteItem = (id) => {
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
-        const findProduct = products.findIndex((p) => p.id === id);
-        products[findProduct].qntd = 0;
-        cartItems.splice(cartItems[findProductInCart], 1);
+        cartItems[findProductInCart].qntd = 0;
+        cartItems.remove(findProductInCart);
 
         setCart([...cartItems]);
     };
@@ -165,8 +169,11 @@ function Produtos(props) {
     const decreaseItem = (id) => {
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
 
-        if (cartItems[findProductInCart].qntd === 1) {
-            cartItems.splice(cartItems[findProductInCart], 1);
+        if (
+            cartItems[findProductInCart].qntd === 1 ||
+            cartItems[findProductInCart].qntd === 0
+        ) {
+            cartItems.remove(findProductInCart);
         } else {
             cartItems[findProductInCart].qntd -= 1;
         }
