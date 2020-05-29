@@ -8,6 +8,9 @@ function App() {
             <h1>Il negozio !</h1>
             <GlobalStyle />
             <Filter />
+            <p>
+                <b>Eduardo Pezzi | Késsia Lopes | Victor Gutierrez </b>
+            </p>
         </>
     );
 }

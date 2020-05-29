@@ -9,7 +9,26 @@ export const Container = styled.div`
     align-content: center;
     margin-top: 30px;
 `;
+export const ProductCardinCart = styled.div`
+    background-color: white;
+    border-radius: 5%;
+    height: 60px;
+    width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 
+    * {
+        margin: 30px 15px;
+    }
+
+    button {
+        background: none;
+        border: none;
+        border-bottom: 1px solid green;
+        font-weight: bold;
+    }
+`;
 export const ProductCard = styled.div`
     width: 200px;
     height: 300px;
@@ -66,10 +85,23 @@ export const CartBtn = styled.button`
 
 export const Cart = styled.div`
     width: auto;
+    background-color: white;
+    border-radius: 5%;
     display: flex;
+    position: fixed;
+    top: 150px;
+    right: 150px;
+    bottom: 150px;
+    left: 150px;
+    flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    overflow-x: scroll;
+    overflow-y: scroll;
+
+    h3 {
+        color: black;
+    }
+
     ::-webkit-scrollbar {
         display: none;
     }

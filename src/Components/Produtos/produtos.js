@@ -7,6 +7,7 @@ import {
     PhotoFrame,
     CartBtn,
     Cart,
+    ProductCardinCart,
 } from './produtos_styles';
 
 function Produtos(props) {
@@ -143,9 +144,10 @@ function Produtos(props) {
 
     const deleteItem = (id) => {
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
+        const findProduct = products.findIndex((p) => p.id === id);
+        products[findProduct].qntd = 0;
         cartItems.splice(cartItems[findProductInCart], 1);
 
-        console.log(findProductInCart, id);
         setCart([...cartItems]);
     };
 
@@ -184,20 +186,18 @@ function Produtos(props) {
 
     const mySearchParameter = new RegExp(search, 'gi');
 
+    //// Renderização Condicional do Carrinho
+
     const toggleCart = () => {
         setToggle(!toggle);
     };
 
-    //// Renderização Condicional do Carrinho
-
     const cartShow = () => {
         if (toggle === true) {
             return cartItems.map((item) => (
-                <ProductCard key={item.id}>
+                <ProductCardinCart key={item.id}>
                     <ProductName>{Capitalize(item.name)}</ProductName>
-                    <PhotoFrame>
-                        <img src={item.imageUrl} alt="" />
-                    </PhotoFrame>
+
                     <p>Quantidade: {item.qntd}</p>
                     <p> R$ {item.value * item.qntd}</p>
 
@@ -208,7 +208,7 @@ function Produtos(props) {
                         Diminuir Quantidade
                     </button>
                     <button onClick={() => deleteItem(item.id)}>Remover</button>
-                </ProductCard>
+                </ProductCardinCart>
             ));
         }
     };
@@ -225,10 +225,16 @@ function Produtos(props) {
                 </select>
             </Inputs>
 
-            <Cart>
-                {toggle === true ? <h1>Carrinho:</h1> : ''}
-                {cartShow()}
-            </Cart>
+            {toggle === true ? (
+                <Cart>
+                    <h1>Carrinho:</h1>
+                    {cartShow()}
+                    <h3>Valor da Compra: R${cartSum}</h3>
+                </Cart>
+            ) : (
+                ''
+            )}
+
             <Container>
                 {products.map((item) => {
                     if (
@@ -257,7 +263,9 @@ function Produtos(props) {
             <div>
                 <CartBtn onClick={toggleCart}>
                     {toggle === true ? 'Fechar Carrinho' : 'Abrir Carrinho'}
-                    <p>Total do carrinho: R${cartSum}</p>
+                    <p>
+                        <b>Total do carrinho: R${cartSum}</b>
+                    </p>
                 </CartBtn>
             </div>
         </>
