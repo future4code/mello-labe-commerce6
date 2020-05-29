@@ -131,7 +131,7 @@ function Produtos(props) {
 
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
 
-        if ( findProductInCart != -1 && findProductInCart !== -1 ) {
+        if (findProductInCart !== -1) {
             cartItems[findProductInCart].qntd += 1;
             setCart([...cartItems]);
         } else {
@@ -165,7 +165,7 @@ function Produtos(props) {
     const decreaseItem = (id) => {
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
 
-        if (cartItems[findProductInCart].qntd == 1) {
+        if (cartItems[findProductInCart].qntd === 1) {
             cartItems.splice(cartItems[findProductInCart], 1);
         } else {
             cartItems[findProductInCart].qntd -= 1;
