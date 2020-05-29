@@ -7,9 +7,11 @@ export const Container = styled.div`
     flex-direction: column;
     position: fixed;
     background-color: #008000c2;
-    color: white;
+    color: black;
+    font-weight: bold;
     padding: 50px;
     bottom: 50px;
     left: 50px;
     border-radius: 5%;
+    background-image: url(https://cdn.folhadoslagos.com/upload/dn_noticia/2016/03/AH1457101568x2382.jpg);
 `;
