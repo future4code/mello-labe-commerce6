@@ -13,6 +13,9 @@ import {
 Array.prototype.remove = function (index) {
     this.splice(index, 1);
 };
+Array.prototype.removeAll = function (index) {
+    this.splice(index);
+};
 
 // Por algum motivo o splice diretamente não estava funcionando, então pesquisamos sobre o assunto
 // e vimos que era possível criar um método para a classe de arrays que faz o mesmo que o splice
@@ -130,6 +133,10 @@ function Produtos(props) {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
+    useEffect(() => {
+        localStorage.setItem('cartOpt', JSON.stringify(toggle));
+    }, [toggle]);
+
     //////////////////// Adiciona o produto no carrinho
 
     const addToCart = (id) => {
@@ -198,6 +205,7 @@ function Produtos(props) {
 
     const toggleCart = () => {
         setToggle(!toggle);
+        localStorage.setItem('cartOpt', JSON.stringify(toggle));
     };
 
     const cartShow = () => {
@@ -221,7 +229,14 @@ function Produtos(props) {
         }
     };
 
-    ///////////////////////////////////////////////////////////////
+    /// Limpando Carrinho
+
+    const clearCart = () => {
+        localStorage.clear('cart');
+        window.location.reload();
+    };
+
+    ////////////////////////////////////////////////////////////
 
     return (
         <>
@@ -238,6 +253,7 @@ function Produtos(props) {
                     <h1>Carrinho:</h1>
                     {cartShow()}
                     <h3>Valor da Compra: R${cartSum}</h3>
+                    <button onClick={clearCart}>Limpar Carrinho</button>
                 </Cart>
             ) : (
                 ''

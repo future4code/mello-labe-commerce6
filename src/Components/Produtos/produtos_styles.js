@@ -98,7 +98,14 @@ export const Cart = styled.div`
     align-items: center;
     justify-content: space-evenly;
     overflow-y: scroll;
-
+    
+    button {
+        background: none;
+        border: 1px solid green;
+        border-radius: 5%;
+        font-weight: bold;
+        padding: 10px;
+    }
     h3 {
         color: black;
     }
