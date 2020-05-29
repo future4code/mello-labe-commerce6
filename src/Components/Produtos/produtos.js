@@ -143,7 +143,6 @@ function Produtos(props) {
         } else {
             products[findProduct].qntd += 1;
             setCart([...cartItems, products[findProduct]]);
-            products[findProduct].qntd = 0;
         }
     };
 
