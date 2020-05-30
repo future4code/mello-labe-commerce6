@@ -135,7 +135,6 @@ function Produtos(props) {
         setSearch(props.Parameters);
         setLesser(props.valMin);
         setHigher(props.valMax);
-        console.log(cartItems);
     }, [props]);
 
     useEffect(() => {
@@ -148,11 +147,17 @@ function Produtos(props) {
 
     const addToCart = (id) => {
         const findProduct = products.findIndex((p) => p.id === id);
-        console.log(findProduct);
-
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
+
         if (findProductInCart !== -1) {
-            cartItems[findProductInCart].qntd += 1;
+            if (
+                cartItems[findProductInCart].qntd <
+                cartItems[findProductInCart].available
+            ) {
+                cartItems[findProductInCart].qntd += 1;
+            } else {
+                alert('Não há mais do que isso no nosso estoque');
+            }
             setCart([...cartItems]);
         } else {
             products[findProduct].qntd += 1;
