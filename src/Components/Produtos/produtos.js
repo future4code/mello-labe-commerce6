@@ -8,9 +8,7 @@ import {
     CartBtn,
     Cart,
     ProductCardinCart,
-    Red,
-    Green,
-    White,
+    PopUp,
 } from './produtos_styles';
 
 Array.prototype.remove = function (index) {
@@ -27,6 +25,7 @@ function Produtos(props) {
             name: 'martello',
             value: 10,
             qntd: 0,
+            available: 2,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAWcTavNxcVlFf9pUC8ivTy0cCGqPSkEOvtSGvj5Zndd0-zGq1uN_Tpt8y_5Z3VrHGXEyQwPtCTWcUc59INw&s=19',
@@ -36,6 +35,7 @@ function Produtos(props) {
             name: 'appendiabiti',
             value: 10,
             qntd: 0,
+            available: 7,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF9OE1CIdkzivHdhH9kze-vP9PKhwuQ5HlqvyH5yvZ0q0QLqOiyMAGXS9kIlNNOLwOX0zEumXn6og02rmQrw&s=19',
@@ -45,6 +45,7 @@ function Produtos(props) {
             name: 'barca a vela',
             value: 142,
             qntd: 0,
+            available: 5,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrW-bZ6FZl-GKSNgyKA93UCLcCYCoLnn86mI2dl1k5G_iv751Q9klmQyra230PhsNvgGoUU2pTIJ13-6io&s=19',
@@ -54,6 +55,7 @@ function Produtos(props) {
             name: 'catena',
             value: 512,
             qntd: 0,
+            available: 33,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpy3_bUgUZWREYAuc6V7ftAQLLcJPywd0meJwKZE9y0amg2O-xFb4-hcoImQ_ZcdIz54l7F_5XwuH0cREW&s=19',
@@ -63,6 +65,7 @@ function Produtos(props) {
             name: 'casa degli uccelli',
             value: 162,
             qntd: 0,
+            available: 13,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQylGdyG9TH8XTr90mNYH5DOtRdkfRlEC1xk27eVYNQOlsfqiES5QISQA00inCDzcU6_WRRvt0zmdwHcoeEsA&s=19',
@@ -72,6 +75,7 @@ function Produtos(props) {
             name: 'dentifricio',
             value: 12,
             qntd: 0,
+            available: 5,
 
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN144t9-K94CYezwvBq6wHX-JGHuai3AN0TuIAysk8vuyCiSd2JHloF19sw9cHoE9soGmQaetJLd2gTe3Taw&s=19',
@@ -81,6 +85,7 @@ function Produtos(props) {
             name: 'orecchino',
             value: 612,
             qntd: 0,
+            available: 53,
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPbxvx_HctymgnwmVDFVh18i---71QnY5KEyr2zh5ICKJM_CIF414VYRqm9O-IxVKjE3ISj0s30_iEhyoQIg&s=19',
         },
@@ -89,6 +94,7 @@ function Produtos(props) {
             name: 'burro',
             value: 512,
             qntd: 0,
+            available: 33,
             imageUrl:
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRleT4UnZ0v-qfGuSYaVxCqaehszLsCZ233010RUFm2Q_jqwZ-akoaZu-4ZPYQeZ2Q5y8leVFArdj8PFpfczA&s=19',
         },
@@ -97,9 +103,10 @@ function Produtos(props) {
             name: 'libro di storie',
             value: 10,
             qntd: 0,
-            imageUrl: 'https://picsum.photos/200/200',
+            available: 23,
+            imageUrl: 'https://picsum.photos/200/200', //Um livro de histórias pode te levar a qualquer lugar
         },
-    ]);
+    ]); // Referência ao integrante Pezzi :D
     const [search, setSearch] = useState(props.Parameters);
     const [sortSwitch, setSwitch] = useState(false);
     const [HigherValue, setHigher] = useState(props.valMax);
@@ -108,6 +115,7 @@ function Produtos(props) {
         JSON.parse(localStorage.getItem('cart')) || [],
     );
     const [toggle, setToggle] = useState(false);
+    const [cartIndividualAmount, setCartAmount] = useState(1);
 
     //////////////////////////////// Ordenar por valor
 
@@ -133,6 +141,8 @@ function Produtos(props) {
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    ///////////////////////////////////////////////////////////////////// Início da seção de CRUD do carrinho
 
     //////////////////// Adiciona o produto no carrinho
 
@@ -164,7 +174,19 @@ function Produtos(props) {
 
     const addItem = (id) => {
         const findProductInCart = cartItems.findIndex((p) => p.id === id);
-        cartItems[findProductInCart].qntd += 1;
+
+        if (
+            cartItems[findProductInCart].qntd ===
+            cartItems[findProductInCart].available
+        ) {
+            alert(
+                `Nosso estoque só possui ${
+                    cartItems[findProductInCart].available
+                } unidades de ${Capitalize(cartItems[findProductInCart].name)}`,
+            );
+        } else {
+            cartItems[findProductInCart].qntd += 1;
+        }
 
         setCart([...cartItems]);
     };
@@ -196,11 +218,37 @@ function Produtos(props) {
         0,
     );
 
+    ///////////////// Escreve quantos items são desejados no carrinho
+
+    const changeAmount = (e) => {
+        setCartAmount(Number(e.target.value));
+    };
+
+    const writeAmountinCart = (id) => {
+        const findProductInCart = cartItems.findIndex((p) => p.id === id);
+        if (cartIndividualAmount > cartItems[findProductInCart].available) {
+            cartItems[findProductInCart].qntd =
+                cartItems[findProductInCart].available;
+        } else if (cartIndividualAmount === 0 || cartIndividualAmount < 0) {
+            cartItems[findProductInCart].qntd = 1;
+        } else {
+            cartItems[findProductInCart].qntd = cartIndividualAmount;
+        }
+    };
+
+    ////////////// Limpando Carrinho
+
+    const clearCart = () => {
+        localStorage.clear('cart');
+        window.location.reload();
+    };
+
+    ///////////////////////////////////////////////////////////////////////////// Fim da seção de CRUD do carrinho
+
     const mySearchParameter = new RegExp(search, 'gi');
-    // Regular Expressions
+    /////////////// Regular Expressions para buscas case insensitive
 
-    //// Renderização Condicional do Carrinho
-
+    //////////// Renderização Condicional do Carrinho
     const toggleCart = () => {
         setToggle(!toggle);
         localStorage.setItem('cartOpt', JSON.stringify(toggle));
@@ -215,23 +263,20 @@ function Produtos(props) {
                     <p>Quantidade: {item.qntd}</p>
                     <p> R$ {item.value * item.qntd}</p>
 
-                    <button onClick={() => addItem(item.id)}>
-                        Aumentar Quantidade
-                    </button>
-                    <button onClick={() => decreaseItem(item.id)}>
-                        Diminuir Quantidade
-                    </button>
+                    <button onClick={() => addItem(item.id)}>+</button>
+                    <button onClick={() => decreaseItem(item.id)}>--</button>
                     <button onClick={() => deleteItem(item.id)}>Remover</button>
+                    <input
+                        placeholder="Insira uma quantidade"
+                        max={item.available}
+                        onInput={() => writeAmountinCart(item.id)}
+                        onChange={changeAmount}
+                        min={1}
+                        type="Number"
+                    />
                 </ProductCardinCart>
             ));
         }
-    };
-
-    /// Limpando Carrinho
-
-    const clearCart = () => {
-        localStorage.clear('cart');
-        window.location.reload();
     };
 
     ////////////////////////////////////////////////////////////
@@ -276,6 +321,7 @@ function Produtos(props) {
                                 <button onClick={() => addToCart(item.id)}>
                                     Adicionar ao Carrinho
                                 </button>
+                                Disponíveis: {item.available}
                             </ProductCard>
                         );
                     }
@@ -288,6 +334,11 @@ function Produtos(props) {
                     <p>
                         <b>Total do carrinho: R${cartSum}</b>
                     </p>
+                    {cartItems.length === 0 ? (
+                        ''
+                    ) : (
+                        <PopUp>{cartItems.length}</PopUp>
+                    )}
                 </CartBtn>
             </div>
         </>

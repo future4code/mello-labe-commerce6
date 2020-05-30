@@ -97,7 +97,8 @@ export const Cart = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    overflow-y: scroll;
+    overflow: scroll;
+    font-size: 0.8rem;
 
     button {
         background: none;
@@ -105,6 +106,7 @@ export const Cart = styled.div`
         border-radius: 5%;
         font-weight: bold;
         padding: 10px;
+        font-size: 0.8rem;
     }
     h3 {
         color: black;
@@ -128,4 +130,16 @@ export const Green = styled.p`
 export const White = styled.p`
     color: white;
     display: inline;
+`;
+
+export const PopUp = styled.span`
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    padding: 25px 30px;
+    position: relative;
+    top: 35px;
 `;
