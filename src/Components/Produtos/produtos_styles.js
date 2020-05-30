@@ -98,6 +98,7 @@ export const Cart = styled.div`
     align-items: center;
     justify-content: space-evenly;
     overflow-y: scroll;
+    font-size: 0.8rem;
 
     button {
         background: none;
@@ -105,6 +106,7 @@ export const Cart = styled.div`
         border-radius: 5%;
         font-weight: bold;
         padding: 10px;
+        font-size: 0.8rem;
     }
     h3 {
         color: black;
