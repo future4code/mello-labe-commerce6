@@ -106,7 +106,7 @@ function Produtos(props) {
             available: 23,
             imageUrl: 'https://picsum.photos/200/200', //Um livro de histórias pode te levar a qualquer lugar
         },
-    ]);
+    ]); // Referência ao integrante Pezzi :D
     const [search, setSearch] = useState(props.Parameters);
     const [sortSwitch, setSwitch] = useState(false);
     const [HigherValue, setHigher] = useState(props.valMax);
@@ -236,13 +236,19 @@ function Produtos(props) {
         }
     };
 
+    ////////////// Limpando Carrinho
+
+    const clearCart = () => {
+        localStorage.clear('cart');
+        window.location.reload();
+    };
+
     ///////////////////////////////////////////////////////////////////////////// Fim da seção de CRUD do carrinho
 
     const mySearchParameter = new RegExp(search, 'gi');
-    // Regular Expressions
+    /////////////// Regular Expressions para buscas case insensitive
 
-    //// Renderização Condicional do Carrinho
-
+    //////////// Renderização Condicional do Carrinho
     const toggleCart = () => {
         setToggle(!toggle);
         localStorage.setItem('cartOpt', JSON.stringify(toggle));
@@ -257,12 +263,8 @@ function Produtos(props) {
                     <p>Quantidade: {item.qntd}</p>
                     <p> R$ {item.value * item.qntd}</p>
 
-                    <button onClick={() => addItem(item.id)}>
-                        Aumentar Quantidade
-                    </button>
-                    <button onClick={() => decreaseItem(item.id)}>
-                        Diminuir Quantidade
-                    </button>
+                    <button onClick={() => addItem(item.id)}>+</button>
+                    <button onClick={() => decreaseItem(item.id)}>--</button>
                     <button onClick={() => deleteItem(item.id)}>Remover</button>
                     <input
                         placeholder="Insira uma quantidade"
@@ -275,13 +277,6 @@ function Produtos(props) {
                 </ProductCardinCart>
             ));
         }
-    };
-
-    /// Limpando Carrinho
-
-    const clearCart = () => {
-        localStorage.clear('cart');
-        window.location.reload();
     };
 
     ////////////////////////////////////////////////////////////
@@ -339,7 +334,11 @@ function Produtos(props) {
                     <p>
                         <b>Total do carrinho: R${cartSum}</b>
                     </p>
+                    {cartItems.length === 0 ? (
+                        ''
+                    ) : (
                         <PopUp>{cartItems.length}</PopUp>
+                    )}
                 </CartBtn>
             </div>
         </>

@@ -15,3 +15,4 @@ export const Container = styled.div`
     border-radius: 5%;
     background-image: url(https://cdn.folhadoslagos.com/upload/dn_noticia/2016/03/AH1457101568x2382.jpg);
 `;
+//Referência à integrante Késsia :D
