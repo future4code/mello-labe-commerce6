@@ -8,6 +8,7 @@ import {
     CartBtn,
     Cart,
     ProductCardinCart,
+    PopUp,
 } from './produtos_styles';
 
 Array.prototype.remove = function (index) {
@@ -338,6 +339,7 @@ function Produtos(props) {
                     <p>
                         <b>Total do carrinho: R${cartSum}</b>
                     </p>
+                        <PopUp>{cartItems.length}</PopUp>
                 </CartBtn>
             </div>
         </>
