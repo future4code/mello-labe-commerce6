@@ -133,6 +133,8 @@ function Produtos(props) {
         }
     };
 
+    //////////////////////////////////////// UseEffects
+
     useEffect(() => {
         setSearch(props.Parameters);
         setLesser(props.valMin);
@@ -307,12 +309,10 @@ function Produtos(props) {
 
             {toggle === true ? (
                 <Cart>
-                        <h1>Carrinho:</h1>
-                    <div>
-                        {cartShow()}
-                    </div>
-                        <h3>Valor da Compra: R${cartSum}</h3>
-                        <button onClick={clearCart}>Limpar Carrinho</button>
+                    <h1>Carrinho:</h1>
+                    <div>{cartShow()}</div>
+                    <h3>Valor da Compra: R${cartSum}</h3>
+                    <button onClick={clearCart}>Limpar Carrinho</button>
                 </Cart>
             ) : (
                 ''

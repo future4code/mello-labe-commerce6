@@ -20,7 +20,6 @@ export const ProductCardinCart = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     * {
         margin: auto;
     }
@@ -63,7 +62,6 @@ export const ProductCard = styled.div`
     }
     button:active {
         background-color: #292d3e;
-        background-size: 1s00%;
         transition: background 0s;
     }
 `;
@@ -73,10 +71,6 @@ export const PhotoFrame = styled.div`
     width: 120px;
     height: 120px;
     border-radius: 50%;
-
-    /* img {
-
-    } */
 `;
 
 export const ProductName = styled.p`
@@ -143,6 +137,8 @@ export const Cart = styled.div`
         display: flex;
         flex-wrap: wrap;
         margin: 10px 30px;
+        justify-content: center;
+        align-items: center;
     }
 
     button {
