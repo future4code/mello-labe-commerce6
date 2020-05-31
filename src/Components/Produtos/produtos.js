@@ -10,6 +10,8 @@ import {
     ProductCardinCart,
     PopUp,
 } from './produtos_styles';
+import { IoMdAddCircleOutline, IoMdRemoveCircleOutline } from 'react-icons/io';
+import { RiDeleteBin2Line } from 'react-icons/ri';
 
 Array.prototype.remove = function (index) {
     this.splice(index, 1);
@@ -268,17 +270,23 @@ function Produtos(props) {
                     <p>Quantidade: {item.qntd}</p>
                     <p> R$ {item.value * item.qntd}</p>
 
-                    <button onClick={() => addItem(item.id)}>+</button>
-                    <button onClick={() => decreaseItem(item.id)}>--</button>
-                    <button onClick={() => deleteItem(item.id)}>Remover</button>
+                    <button onClick={() => addItem(item.id)}>
+                        <IoMdAddCircleOutline size={20} />
+                    </button>
                     <input
-                        placeholder="Insira uma quantidade"
                         max={item.available}
+                        value={item.qntd}
                         onInput={() => writeAmountinCart(item.id)}
                         onChange={changeAmount}
                         min={1}
                         type="Number"
                     />
+                    <button onClick={() => decreaseItem(item.id)}>
+                        <IoMdRemoveCircleOutline size={20} />
+                    </button>
+                    <button onClick={() => deleteItem(item.id)}>
+                        <RiDeleteBin2Line size={20} />
+                    </button>
                 </ProductCardinCart>
             ));
         }
