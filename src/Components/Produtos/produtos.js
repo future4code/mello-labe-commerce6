@@ -10,6 +10,8 @@ import {
     ProductCardinCart,
     PopUp,
 } from './produtos_styles';
+import { IoMdAddCircleOutline, IoMdRemoveCircleOutline } from 'react-icons/io';
+import { RiDeleteBin2Line } from 'react-icons/ri';
 
 Array.prototype.remove = function (index) {
     this.splice(index, 1);
@@ -254,6 +256,7 @@ function Produtos(props) {
     /////////////// Regular Expressions para buscas case insensitive
 
     //////////// Renderização Condicional do Carrinho
+
     const toggleCart = () => {
         setToggle(!toggle);
         localStorage.setItem('cartOpt', JSON.stringify(toggle));
@@ -268,17 +271,23 @@ function Produtos(props) {
                     <p>Quantidade: {item.qntd}</p>
                     <p> R$ {item.value * item.qntd}</p>
 
-                    <button onClick={() => addItem(item.id)}>+</button>
-                    <button onClick={() => decreaseItem(item.id)}>--</button>
-                    <button onClick={() => deleteItem(item.id)}>Remover</button>
+                    <button onClick={() => addItem(item.id)}>
+                        <IoMdAddCircleOutline color="black" size={20} />
+                    </button>
                     <input
-                        placeholder="Insira uma quantidade"
                         max={item.available}
+                        value={item.qntd}
                         onInput={() => writeAmountinCart(item.id)}
                         onChange={changeAmount}
                         min={1}
                         type="Number"
                     />
+                    <button onClick={() => decreaseItem(item.id)}>
+                        <IoMdRemoveCircleOutline color="black" size={20} />
+                    </button>
+                    <button onClick={() => deleteItem(item.id)}>
+                        <RiDeleteBin2Line color="black" size={20} />
+                    </button>
                 </ProductCardinCart>
             ));
         }
@@ -298,10 +307,12 @@ function Produtos(props) {
 
             {toggle === true ? (
                 <Cart>
-                    <h1>Carrinho:</h1>
-                    {cartShow()}
-                    <h3>Valor da Compra: R${cartSum}</h3>
-                    <button onClick={clearCart}>Limpar Carrinho</button>
+                        <h1>Carrinho:</h1>
+                    <div>
+                        {cartShow()}
+                    </div>
+                        <h3>Valor da Compra: R${cartSum}</h3>
+                        <button onClick={clearCart}>Limpar Carrinho</button>
                 </Cart>
             ) : (
                 ''

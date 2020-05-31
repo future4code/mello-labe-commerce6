@@ -30,9 +30,9 @@ class Filter extends React.Component {
                 <Container>
                     <label htmlFor="">Busca por Nome</label>
                     <input onChange={this.handleSearch} type="text" />
-                    <label htmlFor="">Filtrar Valor Mínimo</label>
+                    <label htmlFor="">Filtrar por valor Mínimo</label>
                     <input onChange={this.minValue} type="number" min={0} />
-                    <label htmlFor="">Filtrar Valor Máximo</label>
+                    <label htmlFor="">Filtrar por valor Máximo</label>
                     <input
                         onChange={this.maxValue}
                         type="number"
