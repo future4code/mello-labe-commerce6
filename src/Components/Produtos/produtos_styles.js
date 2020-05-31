@@ -8,13 +8,16 @@ export const Container = styled.div`
     gap: 10px;
     align-content: center;
     margin-top: 30px;
+    min-height: 1000px;
 `;
 export const ProductCardinCart = styled.div`
     background-color: white;
     border-radius: 5%;
     height: 60px;
-    width: 800px;
+    width: 300px;
+    margin: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 
@@ -60,7 +63,7 @@ export const ProductCard = styled.div`
     }
     button:active {
         background-color: #292d3e;
-        background-size: 100%;
+        background-size: 1s00%;
         transition: background 0s;
     }
 `;
@@ -128,11 +131,19 @@ export const Cart = styled.div`
     right: 150px;
     bottom: 150px;
     left: 150px;
+    color: black;
+    background-color: #292d3e;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    overflow: scroll;
+    justify-content: center;
+    overflow-y: scroll;
     font-size: 0.8rem;
+
+    div {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px 30px;
+    }
 
     button {
         background: none;
@@ -140,9 +151,13 @@ export const Cart = styled.div`
         border: none;
         font-weight: bold;
         font-size: 0.8rem;
+        color: white;
     }
     h3 {
-        color: black;
+        color: white;
+    }
+    h1 {
+        color: white;
     }
 
     ::-webkit-scrollbar {

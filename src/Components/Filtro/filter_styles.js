@@ -6,13 +6,12 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
     position: fixed;
-    background-color: #008000c2;
-    color: black;
-    font-weight: bold;
-    padding: 50px;
-    bottom: 50px;
-    left: 50px;
+    background-color: #292d3e;
+    color: white;
+    padding: 10px;
+    top: 25px;
+    left: 25px;
     border-radius: 5%;
-    background-image: url(https://cdn.folhadoslagos.com/upload/dn_noticia/2016/03/AH1457101568x2382.jpg);
+    font-size: 14px;
 `;
 //Referência à integrante Késsia :D
